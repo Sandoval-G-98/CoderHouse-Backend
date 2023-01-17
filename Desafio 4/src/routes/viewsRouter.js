@@ -1,7 +1,7 @@
 const express = require('express')
 const viewsRouter = express.Router()
 
-productsRouter.get('', (req, res) => {
+viewsRouter.get('', (req, res) => {
 
     let limit = req.query.limit
     const productsList = productManager.getProducts()
