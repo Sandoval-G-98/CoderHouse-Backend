@@ -11,27 +11,22 @@ const socketServer = new Server(httpServer)
 
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
-app.set('views', __dirname+'/views')
+app.set('views', __dirname + '/views')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(__dirname + '/public'))
 
 app.use("/api/carts", cartsRouter)
 app.use("/api/products", productsRouter)
-app.use("/api/realtimeproducts", viewsRouter)
+app.use("/", viewsRouter)
 
 socketServer.on("connection", (socket) => {
-    socket.on("mensaje", (msj) =>{
-        console.log("Nuevo mensaje: " + msj)
+    console.log("Nuevo cliente conectado")
+
+    socketServer.on('newProduct', newProduct =>{
+        console.log("Entre a new product server")
+        console.log(newProduct)
     })
-    socket.emit("singlecast", "Este es un mensaje del servidor")
-    socket.broadcast.emit("broadcast", "ESTE ES UN MENSAJE DE BROADCAST")
-    socketServer.emit("multicast", "ESTE ES UN MENSAJE DE multicast")
-})
 
-app.get("/", (req, res) => {
-    const nombre = req.params.nombre
-    res.render("saludar", {nombre})
 })
-
 
