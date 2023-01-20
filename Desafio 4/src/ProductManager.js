@@ -8,7 +8,7 @@ class ProductManager{
     }
 
     addProduct(product){
-        
+
         this.products = this.getProducts()
         
         const checkParamResponse = this.#checkParamsAddProductCorrect(product)
@@ -135,11 +135,11 @@ class ProductManager{
             return [false, "Param 'stock' is mandatoy"]
         }
 
-        if (product.code == "" || product.code == null) {
+        if (product.code == null) {
             return [false, "Param 'code' is mandatoy"]
         }
 
-        if (product.status == "" || product.status == null) {
+        if (product.status != true && product.status != false) {
             return [false, "Param 'status' is mandatoy"]
         }
 
@@ -190,7 +190,7 @@ class ProductManager{
 
 }
 
-const productManager = new ProductManager("./products.json")
+const productManager = new ProductManager("../products.json")
 
 module.exports = {
     productManager

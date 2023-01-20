@@ -2,11 +2,12 @@ const express = require('express')
 const {productsRouter} = require('./routes/productsRouter')
 const {cartsRouter} = require('./routes/cartsRouter')
 const {viewsRouter} = require('./routes/viewsRouter')
+const {productManager} = require('./ProductManager')
 const {engine} = require('express-handlebars')
 const {Server} = require('socket.io')
 
 const app = express()
-const httpServer = app.listen(8080, () => console.log("Servidor arriba en el 8080"))
+const httpServer = app.listen(8080, () => console.log("Server up in port 8080"))
 const socketServer = new Server(httpServer)
 
 app.engine('handlebars', engine())
@@ -23,10 +24,23 @@ app.use("/", viewsRouter)
 socketServer.on("connection", (socket) => {
     console.log("Nuevo cliente conectado")
 
-    socketServer.on('newProduct', newProduct =>{
-        console.log("Entre a new product server")
-        console.log(newProduct)
+    const newProductsList = productManager.getProducts()
+    socket.emit("newProductsList", newProductsList)
+
+    socket.on('newProduct', newProduct =>{
+
+        const response = productManager.addProduct(newProduct)
+
+        if(response == "Product added successfully") {
+            console.log("entre a hacer el emit")
+            const newProductsList = productManager.getProducts()
+            socket.emit("newProductsList", newProductsList)
+        }
     })
+
+    socket.on("disconnect", () => {
+        console.log("user disconnected")
+      })
 
 })
 

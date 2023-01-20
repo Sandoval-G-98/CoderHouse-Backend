@@ -1,12 +1,10 @@
 const socketClient = io()
 
-socketClient.emit('newProduct', "newProduct")
-
 const submitButton = document.getElementById('send-button')
 
-submitButton.addEventListener("submit", (e)=>{
+submitButton.addEventListener("click", (event)=> {
 
-    e.preventDefault()
+    event.preventDefault()
 
     const title = document.getElementById("title").value
     const description = document.getElementById("description").value
@@ -22,14 +20,77 @@ submitButton.addEventListener("submit", (e)=>{
         "description": description,
         "price": price,
         "thumbnails": thumbnails,
-        "status": status,
+        "status": status == "True" ? true : false,
         "code": code,
         "stock": stock,
         "category": category
     }
 
-    console.log(newProduct)
-
     socketClient.emit('newProduct', newProduct)
+
+})
+
+socketClient.on("newProductsList", newProductsList =>{
+
+    console.log(newProductsList)
+    
+    newProductsList.forEach(product => {
+
+        const productList = document.getElementById("realTimeProductsList")
+
+        const ul = document.createElement("ul")
+
+        const liTitle = document.createElement("li")
+
+        liTitle.innerHTML = product.title
+        
+        ul.appendChild(liTitle)
+
+        const liDescription = document.createElement("li")
+
+        liDescription.innerHTML = product.description
+        
+        ul.appendChild(liDescription)
+        
+        const liPrice = document.createElement("li")
+
+        liPrice.innerHTML = product.price
+
+        ul.appendChild(liPrice)
+
+        const liThumbnails = document.createElement("li")
+
+        liThumbnails.innerHTML = product.thumbnails
+
+        ul.appendChild(liThumbnails)
+
+        const liStatus = document.createElement("li")
+
+        liStatus.innerHTML = product.status
+
+        ul.appendChild(liStatus)
+
+        const liCode = document.createElement("li")
+
+        liCode.innerHTML = product.code
+
+        ul.appendChild(liCode)
+        
+        const liStock = document.createElement("li")
+
+        liStock.innerHTML = product.stock
+
+        ul.appendChild(liStock)
+
+        const liCategory = document.createElement("li")
+
+        liCategory.innerHTML = product.category
+
+        ul.appendChild(liCategory)
+
+        productList.appendChild(ul)
+
+    })
+
 
 })
