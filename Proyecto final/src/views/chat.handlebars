@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <title> Chat Home </title>
+</head>
+<body>
+<div>
+    <div id="chat-container">
+        <div id="chat-header">
+            <h2> Chat </h2>
+        </div>
+
+        <div id="chat-window">
+
+            <p id="message-logs"></p>
+
+        </div>
+
+        <div id ="chat-input-container">
+            <input type="text", placeholder="Escribe tu mensaje", id="chat-box">
+        </div>
+    </div>
+</div>
+<script src="/js/index.js"></script>
+</body>
+</html>

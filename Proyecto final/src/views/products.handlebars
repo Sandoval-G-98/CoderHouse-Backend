@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Products Home </title>
+</head>
+<body>
+    {{#each productsList.docs}}
+    <div id="product">
+        <div>
+            <ul>
+                <li id="tile"> Title: {{this.title}}</li>
+                <li id="description"> Description: {{this.description}}</li>
+                <li id="price"> Price: {{this.price}}</li>
+                <li id="thumbnails"> Thumbnails: {{this.thumbnails}}</li>
+                <li id="status"> Status: {{this.status}}</li>
+                <li id="code"> Code: {{this.code}}</li>
+                <li id="category"> Category: {{this.category}}</li>
+                <li id="stock"> Stock: {{this.stock}}</li>
+            </ul>
+            <button type="submit" id="add-product-button" > Agregar producto </button>
+        </div>
+    </div>
+    {{/each}}
+    <nav>
+        <ul>
+            {{#if productsList.hasPrevPage}}
+            <li>
+                <a href="{{productsList.prevLink}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {{/if}}
+            {{#if productsList.hasNextPage}}
+            <li>
+                <a href="{{productsList.nextLink}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {{/if}}
+        </ul>
+    </nav>
+    <script src="/js/products.js"></script>
+</body>
+</html>

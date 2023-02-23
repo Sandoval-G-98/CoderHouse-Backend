@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Products Home </title>
+</head>
+<body>
+<div class="">
+    <div class="">
+        <h1 class="">Vista de carrito</h1>
+        <h4 class="text-black">Cart ID: {{cartId}}</h4>
+        
+        {{#each cartProducts}}
+            <div class="">
+                <div class="">
+                    <h4>Producto: {{this.title}}</h4>
+                </div>
+                <div class="">
+                    <h4>Cantidad: {{this.quantity}}</h4>
+                </div>
+                <div class="">
+                    <h4>Precio unitario: ${{this.price}}</h4>
+                </div>
+                <div class="">
+                    <h4>Valor total: ${{this.totalPrice}}</h4>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+</body>
+</html>

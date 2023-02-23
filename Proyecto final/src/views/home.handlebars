@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Products Home </title>
+</head>
+<body>
+    {{#each products}}
+    <div id="products">
+        <ul>
+            <li>Title: {{this.title}}</li>
+            <li>Description: {{this.description}}</li>
+            <li>Price: {{this.price}}</li>
+            <li>Thumbanails: {{this.thumbnails}}</li>
+            <li>Status: {{this.status}}</li>
+            <li>Code: {{this.code}}</li>
+            <li>Category: {{this.category}}</li>
+            <li>Stock: {{this.stock}}</li>
+        </ul>
+    </div>
+    {{/each}}
+</body>
+</html>
