@@ -50,23 +50,30 @@ cartsRouter.post('/:cid/products/:pid', async (req, res) => {
     const response = await cartManager.addProductToCart(cartId, productId)
 
     if(response == "Product added successfully to the cart")
-        res.status(200).send({"message": response})
+        res.status(200)
+    else if(response == "Cart not found")
+        res.status(404)
     else
-        res.status(500).send({"message": response})
+        res.status(500)
+
+    res.send({"message": response})
 })
 
 cartsRouter.put('/:cid', async (req, res) => {
 
     const products = req.body.products
+    const cartId = req.params.cid
 
     const response = await cartManager.updateAllProductsCart(cartId, products)
 
     if(response == "Products updated successfully")
         res.status(200)
+    else if(response == "Cart not found")
+        res.status(404)
     else
         res.status(500)
     
-    res.send.send({"message": response})
+    res.send({"message": response})
 })
 
 cartsRouter.put('/:cid/products/:pid', async (req, res) => {

@@ -29,16 +29,22 @@ class CartManager {
 
             let cartUpdated = await cartModel.findById(cartId)
 
-            let indexResult = cartUpdated.products.findIndex( product => product.product.toString() == productId)
+            if(cartUpdated) {
+                
+                let indexResult = cartUpdated.products.findIndex( product => product.product.toString() == productId)
 
-            if(indexResult != -1)
-                cartUpdated.products[indexResult].quantity++
-            else
-                cartUpdated.products.push({product: productId})
+                if(indexResult != -1)
+                    cartUpdated.products[indexResult].quantity++
+                else
+                    cartUpdated.products.push({product: productId})
 
-            cartUpdated = await cartModel.updateOne({_id: cartId}, cartUpdated)
+                cartUpdated = await cartModel.updateOne({_id: cartId}, cartUpdated)
 
-            return "Product added successfully to the cart"
+                return "Product added successfully to the cart"
+
+            }
+
+            return "Cart not found"
 
         } catch (e) {
             console.log("Something went wrong adding product to cart: "+e)
@@ -158,11 +164,17 @@ class CartManager {
 
             let cart = await cartModel.findById(cartId)
 
-            cart.products = products
+            if(cart){
+                console.log(cart)
+    
+                cart.products = products
+    
+                await cartModel.updateOne({_id: cartId}, cart)
+    
+                return "Products updated successfully"
+            }
 
-            await cartModel.updateOne({_id: cartId}, cart)
-
-            return "Products updated successfully"
+            return "Cart not found"
 
         } catch(err) {
 
@@ -178,15 +190,23 @@ class CartManager {
 
             let cart = await cartModel.findById(cartId)
 
-            let product = cart.products.find(product => product.product == productId)
+            if(cart) {
 
-            let productIndex = cart.products.indexOf(product)
+                let product = cart.products.find(product => product.product._id == productId)
 
-            cart.products[productIndex].quantity = quantity
+                let productIndex = cart.products.indexOf(product)
 
-            await cartModel.updateOne({_id: cartId}, cart)
+                console.log(productIndex)
 
-            return "Product updated successfully"
+                cart.products[productIndex].quantity = quantity
+
+                await cartModel.updateOne({_id: cartId}, cart)
+
+                return "Product updated successfully"
+
+            }
+
+            return "Cart not found"
 
         } catch(err) {
 
@@ -201,7 +221,7 @@ class CartManager {
 
             let cart = await cartModel.findById(cartId)
 
-            let product = cart.products.find(product => product.product == productId)
+            let product = cart.products.find(product => product.product._id == productId)
 
             let productIndex = cart.products.indexOf(product)
 

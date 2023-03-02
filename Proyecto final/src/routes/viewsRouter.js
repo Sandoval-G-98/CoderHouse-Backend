@@ -47,6 +47,18 @@ viewsRouter.get('/realtimeproducts', (req, res) => {
     res.render("realTimeProducts")
 })
 
+viewsRouter.get('/login', async (req, res) => { 
+    res.render("login")
+})
+    
+viewsRouter.get('/register', (req, res) => { 
+    res.render("register")
+})
+
+viewsRouter.get('/perfil', (req, res) => { 
+    res.render("perfi")
+})
+
 
 module.exports = {
     viewsRouter,
