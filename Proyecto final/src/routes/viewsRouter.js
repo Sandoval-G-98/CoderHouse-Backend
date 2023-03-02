@@ -3,14 +3,14 @@ const {productManager} = require('../dao/ProductManager')
 const {cartManager} = require('../dao/CartManager')
 const viewsRouter = express.Router()
 
-viewsRouter.get('/home', async (req, res) => {
+viewsRouter.get('/home', auth, async (req, res) => {
 
     let productsList = await productManager.getProducts()
     let products = productsList.docs
     res.render("home", {products})
 })
 
-viewsRouter.get('/products', async (req, res) => {
+viewsRouter.get('/products', auth, async (req, res) => {
 
     const page = req.query.page
     const sort = req.query.sort
@@ -22,7 +22,7 @@ viewsRouter.get('/products', async (req, res) => {
     res.render("products", {productsList})
 })
 
-viewsRouter.get('/carts/:cid', async (req, res) => {
+viewsRouter.get('/carts/:cid', auth, async (req, res) => {
     const cartId = req.params.cid
 
     const cart = await cartManager.getCartById(cartId)
@@ -55,10 +55,16 @@ viewsRouter.get('/register', (req, res) => {
     res.render("register")
 })
 
-viewsRouter.get('/profile', (req, res) => { 
+viewsRouter.get('/profile', auth, (req, res) => { 
     res.render("profile")
 })
 
+function auth(req, res, next) {
+    if(req.session.user) {
+        return next();
+    }
+    res.redirect('/login')
+}
 
 module.exports = {
     viewsRouter,

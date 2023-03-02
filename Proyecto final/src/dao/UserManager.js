@@ -13,14 +13,14 @@ class UserManager {
         return "User not found"
     }
 
-    async addUser(firstName, lastName, email, age, password) {
+    async addUser(first_name, last_name, email, age, password) {
 
         await userModel.create({ 
-            firstName:firstName, 
-            lastName:lastName, 
-            age:age, email: 
-            email, password: 
-            password
+            first_name:first_name, 
+            last_name:last_name, 
+            age:age, 
+            email: email, 
+            password: password
         })
         
     }

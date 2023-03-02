@@ -4,6 +4,9 @@ elementExits("login") && document.getElementById("login").addEventListener("clic
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
+    console.log(email)
+    console.log(password)
+
     fetch("http://localhost:8080/api/sessions/login", {
         method: "POST",
         headers: {
@@ -53,7 +56,7 @@ elementExits("signup") && document.getElementById("signup").addEventListener("cl
         .then(res => res.json())
         .then(data => {
             if(data.msg === "Success") {
-                window.location.href = "http://localhost:8080/sessions/login"
+                window.location.href = "http://localhost:8080/login"
             } else {
                 Swal.fire({
                     title: "Error en inicio de sesión",
