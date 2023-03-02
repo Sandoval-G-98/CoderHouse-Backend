@@ -4,12 +4,6 @@ elementExits("login") && document.getElementById("login").addEventListener("clic
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    console.log("Estos en el session.js")
-
-    console.log("Email " + email )
-
-    console.log("Password " + password)
-
     fetch("http://localhost:8080/api/sessions/login", {
         method: "POST",
         headers: {
@@ -43,7 +37,7 @@ elementExits("signup") && document.getElementById("signup").addEventListener("cl
     if(!first_name || !last_name || !email || !password || !age) {
         alert("Todos los campos son obligatorios")
     } else {
-        fetch("http://localhost:8080/api/sessions/signup", {
+        fetch("http://localhost:8080/api/sessions/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

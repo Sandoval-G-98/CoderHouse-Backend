@@ -55,8 +55,8 @@ viewsRouter.get('/register', (req, res) => {
     res.render("register")
 })
 
-viewsRouter.get('/perfil', (req, res) => { 
-    res.render("perfi")
+viewsRouter.get('/profile', (req, res) => { 
+    res.render("profile")
 })
 
 

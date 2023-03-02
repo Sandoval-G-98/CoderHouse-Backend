@@ -22,8 +22,7 @@ class UserManager {
             email, password: 
             password
         })
-
-
+        
     }
 
 }
