@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     },
     password: String,
     age: Number,
-    role: String,
 })
 
 const userModel = mongoose.model(userCollection, userSchema);

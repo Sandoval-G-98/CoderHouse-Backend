@@ -4,11 +4,12 @@ class UserManager {
 
     async getUser(email, password) {
 
-        const response = await userModel.find({ email: email, password:password, });
+        const user = await userModel.find({ email: email, password:password})
 
-        if(response){
-            return response
-        }
+        console.log(user)
+
+        if(user.length > 0)
+            return user
 
         return "User not found"
     }
@@ -20,7 +21,7 @@ class UserManager {
             last_name:last_name, 
             age:age, 
             email: email, 
-            password: password
+            password: password,
         })
         
     }

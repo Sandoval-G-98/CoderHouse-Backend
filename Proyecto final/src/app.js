@@ -33,9 +33,9 @@ app.use(session({
     store:mongoStore.create({
         mongoUrl: "mongodb+srv://"+DB_USER+":"+DB_PASSWORD+"@codercluster.88fp6eg.mongodb.net/"+DB_NAME+"?retryWrites=true&w=majority",
         mongoOptions:{useNewUrlParser:true, useUnifiedTopology:true},
-        ttl:15,
+        ttl:30000,
     }),
-    secret:"asd",
+    secret:"s3cret",
     resave:false,
     saveUnitialized:false,
 }))

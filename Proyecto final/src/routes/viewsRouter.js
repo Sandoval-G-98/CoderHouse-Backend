@@ -16,10 +16,11 @@ viewsRouter.get('/products', auth, async (req, res) => {
     const sort = req.query.sort
     const limit = req.query.limit
     const query = req.query.query
+    const user = req.session.user
 
     const productsList = await productManager.getProducts(limit, page, query, sort)
     
-    res.render("products", {productsList})
+    res.render("products", {productsList, user})
 })
 
 viewsRouter.get('/carts/:cid', auth, async (req, res) => {
@@ -47,7 +48,7 @@ viewsRouter.get('/realtimeproducts', (req, res) => {
     res.render("realTimeProducts")
 })
 
-viewsRouter.get('/login', async (req, res) => { 
+viewsRouter.get('/login', async (req, res) => {
     res.render("login")
 })
     
@@ -56,7 +57,8 @@ viewsRouter.get('/register', (req, res) => {
 })
 
 viewsRouter.get('/profile', auth, (req, res) => { 
-    res.render("profile")
+    const user = req.session.user
+    res.render("profile", {user})
 })
 
 function auth(req, res, next) {

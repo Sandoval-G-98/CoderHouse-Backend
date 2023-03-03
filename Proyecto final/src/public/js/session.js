@@ -1,11 +1,9 @@
 const elementExits = (id) => document.getElementById(id) !== null;
 
 elementExits("login") && document.getElementById("login").addEventListener("click", (e) => {
+
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-
-    console.log(email)
-    console.log(password)
 
     fetch("http://localhost:8080/api/sessions/login", {
         method: "POST",
@@ -19,12 +17,12 @@ elementExits("login") && document.getElementById("login").addEventListener("clic
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data);
         if(data.msg === "Success") {
-            window.location.href = `http://localhost:8080/products/`;
+            console.log("Entre")
+            window.location.assign("http://localhost:8080/products");
         } else {
-            alert("Usuario no encontrado")
-        }
+            alert("Error en login de usuario. Valide los campos")
+        }s
     })
     .catch(err => console.log(err))
 
@@ -56,21 +54,34 @@ elementExits("signup") && document.getElementById("signup").addEventListener("cl
         .then(res => res.json())
         .then(data => {
             if(data.msg === "Success") {
-                window.location.href = "http://localhost:8080/login"
+                window.location.assign("http://localhost:8080/login")
             } else {
-                Swal.fire({
-                    title: "Error en inicio de sesión",
-                    text: "Error en usuario o contraseña. Si no se encuentra registrado, por favor registrese.",
-                    confirmButton: "Cool",
-                    allowOutsideClick: false,
-                }).then((result)=>{
-                    if(result.value){
-                        user = result.value
-                    }
-                })
+                alert("Error en alta de usuario. Valide los campos")
             }
         })
         .catch(err => console.log(err)) 
 
     }
+})
+
+elementExits("logout") && document.getElementById("logout").addEventListener("click", (e) => {
+
+    fetch("http://localhost:8080/api/sessions/logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "logout": true,
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.msg === "Success") {
+                window.location.assign("http://localhost:8080/login")
+            } else {
+                alert("Error en cierre de cesion")
+            }
+        })
+        .catch(err => console.log(err))
 })
