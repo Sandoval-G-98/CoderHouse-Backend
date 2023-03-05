@@ -11,6 +11,8 @@ const {sessionsRouter} = require('./routes/sessionsRouter')
 const {productManager} = require('../src/dao/ProductManager')
 const {messageModel} = require('../src/dao/models/message.model');
 const {engine} = require('express-handlebars')
+const passport = require('passport')
+const {initializePassport} = require('./config/passport.config')
 const {Server} = require('socket.io')
 const dotenv = require('dotenv');   
 mongoose.set('strictQuery', true);
@@ -21,7 +23,6 @@ dotenv.config();
 const DB_USER = process.env.REACT_APP_DB_USER_MONGO
 const DB_PASSWORD = process.env.REACT_APP_DB_PASSWORD_MONGO
 const DB_NAME = process.env.REACT_APP_DB_NAME_MONGO
-
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 app.set('views', __dirname + '/views')
@@ -39,6 +40,9 @@ app.use(session({
     resave:false,
     saveUnitialized:false,
 }))
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
 app.use((req, res, next)=>{ 
     res.locals.session = req.session;
     next();

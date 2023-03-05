@@ -20,6 +20,9 @@ viewsRouter.get('/products', auth, async (req, res) => {
 
     const productsList = await productManager.getProducts(limit, page, query, sort)
     
+    console.log("Informacion del usuario: ")
+    console.log(req.session.user.role)
+
     res.render("products", {productsList, user})
 })
 
@@ -48,12 +51,16 @@ viewsRouter.get('/realtimeproducts', (req, res) => {
     res.render("realTimeProducts")
 })
 
-viewsRouter.get('/login', async (req, res) => {
+viewsRouter.get('/login', (req, res) => {
     res.render("login")
 })
     
 viewsRouter.get('/register', (req, res) => { 
     res.render("register")
+})
+
+viewsRouter.get('/restore', (req, res) => { 
+    res.render("restore")
 })
 
 viewsRouter.get('/profile', auth, (req, res) => { 

@@ -22,7 +22,7 @@ elementExits("login") && document.getElementById("login").addEventListener("clic
             window.location.assign("http://localhost:8080/products");
         } else {
             alert("Error en login de usuario. Valide los campos")
-        }s
+        }
     })
     .catch(err => console.log(err))
 
@@ -84,4 +84,41 @@ elementExits("logout") && document.getElementById("logout").addEventListener("cl
             }
         })
         .catch(err => console.log(err))
+})
+
+
+elementExits("restore") && document.getElementById("restore").addEventListener("click", (e) => {
+    window.location.assign("http://localhost:8080/restore")
+})
+
+
+elementExits("restore-password") && document.getElementById("restore-password").addEventListener("click", (e) => {
+    
+    const email = document.getElementById("email").value
+    const newPassword = document.getElementById("new-password").value
+
+    if(!email || !newPassword ) {
+        alert("Los campos email y password son obligatorios")
+    }
+    else {
+        fetch("http://localhost:8080/api/sessions/restore", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email,
+                newPassword
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.msg === "Success") {
+                window.location.assign("http://localhost:8080/login")
+            } else {
+                alert("Error en cambio de contraseña. Valide que no esta usando la misma contraseña")
+            }
+        })
+        .catch(err => console.log(err))
+    }
 })
