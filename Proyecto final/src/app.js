@@ -9,7 +9,9 @@ const {viewsRouter} = require('./routes/viewsRouter')
 const {chatsRouter} = require('./routes/chatsRouter')
 const {sessionsRouter} = require('./routes/sessionsRouter')
 const {productManager} = require('../src/dao/ProductManager')
+const {userManager} = require('../src/dao/UserManager')
 const {messageModel} = require('../src/dao/models/message.model');
+const {createHash} = require('./utils')
 const {engine} = require('express-handlebars')
 const passport = require('passport')
 const {initializePassport} = require('./config/passport.config')
@@ -103,3 +105,10 @@ const isValidStartData = () =>{
 }
 
 isValidStartData && environment()
+
+
+/// Se debe hacer una unica vez al ejecutar la aplicación, luego comentar esta funcion y su ejecución
+/* async function createAdminUser() {
+    await userManager.addUser("Coder", "House", "adminCoder@coder.com", 1, "adminCod3r123")
+}
+createAdminUser() */

@@ -1,7 +1,6 @@
 const elementExits = (id) => document.getElementById(id) !== null;
 
 elementExits("login") && document.getElementById("login").addEventListener("click", (e) => {
-
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 

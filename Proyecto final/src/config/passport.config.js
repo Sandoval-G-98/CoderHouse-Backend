@@ -79,24 +79,21 @@ const initializePassport = () =>{
           usernameField: "email"
         }, async (req, email, password, done)=>{
             try{
-                if(email === "adminCoder@coder.com" && password === "adminCod3r123") {
-                    console.log("Entre aca")
-                    let user = {first_name: "Coder", last_name: "House", email: "adminCoder@coder.com", age: 1}
-                    console.log(user)
-                    return done(null, user)
-                } else {
-                    let user = await userModel.findOne({ email: email})
-                    
-                    if(!user){
-                        console.log("User doesn't exist")
-                        return done(null, false)
-                    }
 
-                    if(!isValidPassword(password, user.password))
-                        return done(null, false)
-
-                    return done(null, user)
+                let user = await userModel.findOne({ email: email})
+                
+                if(!user){
+                    console.log("User doesn't exist")
+                    return done(null, false)
                 }
+
+                if(!isValidPassword(password, user.password)) {
+                    console.log("Invalid password")
+                    return done(null, false)
+                }
+
+                return done(null, user)
+            
             } catch(e){
                 return done("Error al obtener el usuario: " + e)
             }

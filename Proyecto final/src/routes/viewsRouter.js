@@ -19,9 +19,6 @@ viewsRouter.get('/products', auth, async (req, res) => {
     const user = req.session.user
 
     const productsList = await productManager.getProducts(limit, page, query, sort)
-    
-    console.log("Informacion del usuario: ")
-    console.log(req.session.user.role)
 
     res.render("products", {productsList, user})
 })
